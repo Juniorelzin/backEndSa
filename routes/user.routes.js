@@ -24,7 +24,7 @@ user.post("/new", async (req, res) => {
 
   const saveUser = async () => {
     const savedUser = await newUser.save();
-    res.json(savedUser);
+    res.json({savedUser: savedUser, message: "Obrigado pelo Cadastro!"});
   };
 
   saveUser();
