@@ -20,6 +20,7 @@ user.post("/new", async (req, res) => {
     name: name,
     email: email,
     password: password,
+    cash: '100'
   });
 
   const saveUser = async () => {
