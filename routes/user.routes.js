@@ -3,11 +3,13 @@ import express from 'express';
 
 const user = express.Router();
 
-user.get("/find", async (req, res) => {
-  const query = req.query.name;
+user.post("/find", async (req, res) => {
+  const name = req.body.name;
+  const password = req.body.password;
   const users = await User.findAll({
     where: {
-      name: query,
+      name: name,
+      password: password
     },
   });
   res.json(users);
