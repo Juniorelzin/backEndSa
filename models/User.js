@@ -28,6 +28,18 @@ const User = Connection.define(
         cash: {
             type: Sequelize.STRING,
             allowNull: true
+        },
+        userDeck: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        inventary: {
+            type: Sequelize.STRING,
+            allowNull: true
+        },
+        battle: {
+            type: Sequelize.BOOLEAN,
+            allowNull: true
         }
     }
 );
