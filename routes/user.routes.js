@@ -104,6 +104,24 @@ user.post("/update/cash", async (req, res) => {
     console.log('nois')
   }
 });
+user.post("/find/compareName", async (req, res) => {
+  const name = req.body.name;
+  const users = await User.findOne({
+    where: {
+      name: name,
+    },
+  });
+  res.json(users);
+});
+user.post("/find/compareEmail", async (req, res) => {
+  const email = req.body.email;
+  const users = await User.findOne({
+    where: {
+      email: email
+    },
+  });
+  res.json(users);
+});
 
 
 
