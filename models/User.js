@@ -33,7 +33,7 @@ const User = Connection.define(
             type: Sequelize.STRING,
             allowNull: true
         },
-        inventary: {
+        inventory: {
             type: Sequelize.STRING,
             allowNull: true
         },
