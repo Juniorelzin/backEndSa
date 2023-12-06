@@ -25,7 +25,13 @@ user.post("/new", async (req, res) => {
     cash: 1000,
     userDeck: 'vazio',
     inventary: 'vazio',
-    battle: false
+    battle: false,
+    purchase: 0,
+    battles: 0,
+    victories: 0,
+    losses: 0,
+    draws: 0,
+  
   });
 
   const saveUser = async () => {
@@ -75,7 +81,7 @@ user.post("/update/deck", async (req, res) => {
 });
 
 user.post("/update/cash", async (req, res) => {
-  const { name, newCash } = req.body;
+  const { name, newCash, newPurchase } = req.body;
 
   try {
 
@@ -85,8 +91,8 @@ user.post("/update/cash", async (req, res) => {
 
     if (existingUser) {
   
-
         existingUser.cash = newCash;
+        existingUser.purchase = newPurchase;
         console.log('sucesso!')
       
       await existingUser.save();
@@ -122,8 +128,63 @@ user.post("/find/compareEmail", async (req, res) => {
   });
   res.json(users);
 });
+user.post("/update/cash/battle", async (req, res) => {
+  const { name, newCash, newBattle, newVitory, newLoss, newDraw } = req.body;
 
 
+  try {
+
+    const existingUser = await User.findOne({
+      where: { name: name },
+    });
+
+    if (existingUser) {
+  
+        existingUser.cash = newCash;
+        existingUser.battles = newBattle;
+        existingUser.victories = newVitory;
+        existingUser.losses = newLoss;
+        existingUser.draws = newDraw;
+        console.log('sucesso!')
+      
+      await existingUser.save();
+
+      res.json({ message: "Usuário atualizado com sucesso!" });
+      console.log('Usuário atualizado com sucesso!')
+
+    } else {
+      res.status(404).json({ message: "Usuário não encontrado" });
+      console.log('ola')
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro interno do servidor" });
+    console.log('nois')
+  }
+});
+
+user.delete('/delete', async (req, res) => {
+  try {
+    const usernameToDelete = req.body.name;
+
+    const userToDelete = await User.findOne({
+      where: {
+        name: usernameToDelete,
+      },
+    });
+
+    if (!userToDelete) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    await userToDelete.destroy();
+
+    res.json({ message: 'Usuário excluído com sucesso' });
+  } catch (error) {
+    console.error('Erro ao excluir o usuário:', error);
+    res.status(500).json({ error: 'Erro interno do servidor' });
+  }
+});
 
 
 export default user;

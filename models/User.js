@@ -40,7 +40,27 @@ const User = Connection.define(
         battle: {
             type: Sequelize.BOOLEAN,
             allowNull: true
-        }
+        },
+        purchase:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        battles:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        victories:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        losses:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
+        draws:{
+            type: Sequelize.INTEGER,
+            allowNull: true,
+        },
     }
 );
 
